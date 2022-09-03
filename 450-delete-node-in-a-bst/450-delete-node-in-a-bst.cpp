@@ -11,63 +11,39 @@
  */
 class Solution {
 public:
-    TreeNode* tmp;
-    TreeNode* deleteNode(TreeNode* root, int key) { 
-        
-        // 3 cases : node with 2 child -- 1 child -- 0 child
-        return dfs(root,key);
-        
-        
-        
-    }
-    
-    TreeNode* dfs(TreeNode* root, int key){
+    TreeNode* deleteNode(TreeNode* root, int key) {
         if(root == NULL)
-            return root;
-        if(root->val == key){
-            if(root->left == NULL)
-                return root->right;
-            if(root->right == NULL)
-                return root->left;
-            
-            
-            tmp->right = best_Replacement(root->right);
-            tmp->left  = root->left;
-           
-            return tmp;
-            
-        }
-        else if(root->val > key){
-            TreeNode* temp = dfs(root->left,key);
-            root->left = temp;
-        }
-        else if(root->val < key){
-            TreeNode* temp = dfs(root->right,key);
-            root->right = temp;
-            
-        }
-        
-        
-        
-        return root;
-        
-        
-    }
-    TreeNode* best_Replacement(TreeNode* root){
-          
-        if(root->left == NULL){
-             tmp = root;
-            // tmp->left  = NULL;
-            // tmp->right = NULL;
+       return root;
+
+    if(root->val == key){
+
+        if(root->left == NULL && root->right == NULL)
+            return NULL;
+        if(root->left == NULL)
             return root->right;
-        }
-            
+        if(root->right == NULL)
+           return root->left;
         
-        TreeNode* temp = best_Replacement(root->left);
+        TreeNode* temp = root->right;
+        while(temp->left != NULL)
+               temp = temp->left;
+
+        temp->left = root->left;
+        return root->right;
+
+
+    }
+    else if( root->val > key){
+        TreeNode* temp = deleteNode(root->left,key);
         root->left = temp;
-        return root;
         
-        
-        
+
+    }else{
+         TreeNode* temp = deleteNode(root->right,key);
+         root->right = temp;
+
+    }
+
+    return root;
     }
 };
