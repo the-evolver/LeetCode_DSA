@@ -11,11 +11,11 @@
  */
 class Solution {
 public:
-    TreeNode* deleteNode(TreeNode* root, int key) {
-        if(root == NULL)
+    TreeNode* deleteNode(TreeNode* root, int data) {
+         if(root == NULL)
        return root;
 
-    if(root->val == key){
+    if(root->val == data){
 
         if(root->left == NULL && root->right == NULL)
             return NULL;
@@ -24,26 +24,28 @@ public:
         if(root->right == NULL)
            return root->left;
         
-        TreeNode* temp = root->right;
-        while(temp->left != NULL)
-               temp = temp->left;
+         TreeNode* temp = root->left;
+        while(temp->right != NULL)
+               temp = temp->right;
 
-        temp->left = root->left;
-        return root->right;
+        temp->right = root->right;
+        return root->left;
 
 
     }
-    else if( root->val > key){
-        TreeNode* temp = deleteNode(root->left,key);
+    else if( root->val > data){
+         TreeNode* temp = deleteNode(root->left,data);
         root->left = temp;
         
 
     }else{
-         TreeNode* temp = deleteNode(root->right,key);
+         TreeNode* temp = deleteNode(root->right,data);
          root->right = temp;
 
     }
 
     return root;
+    
+        
     }
 };
