@@ -21,26 +21,34 @@ public:
 class Solution {
 public:
     vector<int> postorder(Node* root) {
-    
-         vector<int> ans;
-          dfs(root,ans);
-         return ans;
+        if(root == NULL)
+            return {};
         
+         vector<int> pre_order;   // just for fun 
+         vector<int> post_order;
         
-    }
-    
-    void dfs(Node* root,vector<int>& ans){
+         stack<pair<Node*,int>> st ; // node , state 
         
-       if(root == NULL){
-           return;
-       }
-           
+         st.push({root,-1});
         
-        for(int i = 0 ;i < root->children.size();i++){
-              dfs(root->children[i],ans);
-        }
-         ans.push_back(root->val);
-        return ;
+         while(st.size() > 0){
+             pair<Node*,int> curr = st.top();
+             if(curr.second == -1){
+                pre_order.push_back(curr.first->val);
+                st.top().second++;
+             }else{
+                 if(curr.second == curr.first->children.size()){
+                     post_order.push_back(curr.first->val);
+                     st.pop();
+                 }
+                 else{
+                  st.push({curr.first->children[st.top().second++],-1});
+                 }
+                 
+             }
+             
+         }
+        return post_order;
         
     }
 };
