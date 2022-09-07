@@ -29,10 +29,12 @@ public:
                 TreeNode* rgt = curr.first->right;
                 st.top().second++;
                 if(lft != NULL){
-                    ans += "(";
+                    ans.push_back('(');
                     st.push({lft,-1});
                 }else if(rgt != NULL){
-                    ans += "()";
+                    //ans += "()";
+                    ans.push_back('(');
+                    ans.push_back(')');
                 }
                 
             }
@@ -41,10 +43,10 @@ public:
                 TreeNode* rgt = curr.first->right;
                 st.top().second++;
                 if(lft != NULL){
-                    ans += ")";
+                   ans.push_back(')');
                 }
                 if(rgt != NULL){
-                    ans += "(";
+                   ans.push_back('(');
                     st.push({rgt,-1});
                 }
                 
@@ -53,7 +55,7 @@ public:
             else if(curr.second == 2){
                 TreeNode* rgt = curr.first->right;
                 if(rgt != NULL)
-                    ans += ")";
+                    ans.push_back(')');
                 
                 st.pop();
                 
