@@ -4,11 +4,11 @@ public:
         
         int V = graph.size();
         vector<int>vis(V,0);
-        
+         queue<pair<int,int>>qu;
          for(int i = 0 ; i < V ; i++){
                if(vis[i] != 0)
                    continue;
-               queue<pair<int,int>>qu;
+              
                qu.push({i,-1});
                qu.push({-1,-1});
                int color = 1;
