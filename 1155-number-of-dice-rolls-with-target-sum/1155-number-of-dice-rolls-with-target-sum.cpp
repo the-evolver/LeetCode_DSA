@@ -3,9 +3,24 @@ public:
     int m = 1e9+7;
     int numRollsToTarget(int n, int k, int target) {
         
-        vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+        vector<vector<int>>dp(n+1,vector<int>(target+1,0));
+        dp[0][0] = 1;
+        for(int i = 1 ; i <= n ; i++){
+            for(int t = 1 ; t <= target ;t++){
+                 int sum = 0;
+                for(int f = 1 ; f<= k && t - f >= 0;f++){
+                    sum = ( sum % m + dp[i-1][t-f] % m ) % m ;
+                    
+                }
+                dp[i][t] = sum ;
+                
+            }
+        }
+        return dp[n][target];
         
-         return helper(n,k,target,dp);
+         //return helper(n,k,target,dp);
+        
+        
         
        
         
