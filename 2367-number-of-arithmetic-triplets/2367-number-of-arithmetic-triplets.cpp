@@ -2,7 +2,7 @@ class Solution {
 public:
     int arithmeticTriplets(vector<int>& nums, int diff) {
         
-        vector<int> hash(400,0);
+        vector<int> hash(305,0);
         for(int i = 0 ; i < nums.size();i++){
             hash[nums[i]]++;
         }
