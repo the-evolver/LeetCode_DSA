@@ -19,6 +19,11 @@ public:
                     ans.push_back({nums[i],nums[j],nums[k]});
                     j++;
                     k--;
+                    while( j < k && nums[j]  ==  nums[j-1])
+                           j++;
+                    while( k > j  && nums[k]  ==  nums[k+1])
+                           k--;
+
                     
                 }
                 if(nums[i] + nums[j] + nums[k] < 0){
@@ -34,19 +39,20 @@ public:
             }
             
         }
-        set<vector<int>>st;
-        for(int i = 0 ; i < ans.size();i++){
+        
+//         set<vector<int>>st;
+//         for(int i = 0 ; i < ans.size();i++){
             
-             vector<int> v = ans[i];
-             sort(v.begin(),v.end());
-             st.insert(v);
-        }
+//              vector<int> v = ans[i];
+//              sort(v.begin(),v.end());
+//              st.insert(v);
+//         }
            
         
-        ans.clear();
-        for(auto it = st.begin();it!= st.end();it++){
-            ans.push_back(*it);
-        }
+//         ans.clear();
+//         for(auto it = st.begin();it!= st.end();it++){
+//             ans.push_back(*it);
+//         }
         return ans;
         
     }
