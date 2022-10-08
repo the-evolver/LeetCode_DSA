@@ -19,8 +19,10 @@ public:
                              if( abs(target - (nums[i] + nums[lo] + nums[hi])) < abs(target - ans)){
                                    ans = nums[i] + nums[lo] + nums[hi];
                              }
-                                
+                            
                               lo++;
+                              while(lo < hi && nums[lo] == nums[lo-1])
+                                    lo++;
                       }
                         else{
                                if( abs(target - (nums[i] + nums[lo] + nums[hi])) < abs(target - ans)){
@@ -28,6 +30,8 @@ public:
                                 }
                             
                               hi--;
+                              while(hi > lo && nums[hi] == nums[hi+1])
+                                  hi--;
                         }
                        
                                
