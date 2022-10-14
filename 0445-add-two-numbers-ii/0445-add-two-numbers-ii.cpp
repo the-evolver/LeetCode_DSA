@@ -15,44 +15,36 @@ public:
         int len1 = length(l1);
         int len2 = length(l2);
         
-        
         if(len1 > len2){
-            int diff = len1-len2;
-            ListNode* curr = l1;
-            while(diff > 0){
-                curr = curr->next;
-                diff--;
-            }
-            int c = comp(curr,l2);
-            int nc = recur(l1,curr,c);
-            if(nc > 0){
-             return insert(l1,nc);
-         }
-            return l1;
-            
+            return helper(l1,l2,len1,len2);
+        }else if(len2 > len1){
+            return helper(l2,l1,len2,len1);
             
         }
-        else if(len2 > len1){
-        int diff = len2-len1;
-        ListNode* curr = l2;
-        while(diff > 0){
-                curr = curr->next;
-                diff--;
-            }
-        int c = comp(curr,l1);
-        int nc = recur(l2,curr,c);
-        if(nc > 0){
-             return insert(l2,nc);
-         }
         
-        return l2;
-        
-    }
          int c = comp(l1,l2);
          if(c > 0){
              return insert(l1,c);
          }
          return l1;
+        
+        
+    }
+    ListNode* helper(ListNode* big,ListNode* small,int len_big,int len_small){
+        
+        int diff = len_big-len_small;
+        ListNode* curr = big;
+        while(diff > 0){
+                curr = curr->next;
+                diff--;
+            }
+        int c = comp(curr,small);
+        int nc = recur(big,curr,c);
+        if(nc > 0){
+             return insert(big,nc);
+         }
+        
+        return big;
         
         
     }
