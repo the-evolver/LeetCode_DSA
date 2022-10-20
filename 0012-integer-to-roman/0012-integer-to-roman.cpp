@@ -2,9 +2,7 @@ class Solution {
 public:
     unordered_map<int,string> up;
     string intToRoman(int num) {
-        // two imp case 
-        // 1 . normal uses ..
-        // 2 . if num is next - last >= .. 40 - XL 39. XXXIX
+        
         up[5]    ="V";
         up[10]   ="X";
         up[50]   ="L";
@@ -55,9 +53,5 @@ public:
         
         int val = arr[i-1];
         return up[val] + comp(num-val);
-        
-        
-        
-        
     }
 };
