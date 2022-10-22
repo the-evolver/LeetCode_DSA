@@ -17,7 +17,8 @@ public:
                      j++;
                    
                  }else{
-                   ans = min(ans, j - i);
+                   if(ans > j - i)
+                       ans = j - i;
                    curr_sum -= nums[i];
                    i++;
                  
