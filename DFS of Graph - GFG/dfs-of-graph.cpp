@@ -9,7 +9,7 @@ class Solution {
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
          vector<bool> vis(V,false);
          vector<int> ans;
-         
+         ans.push_back(0);
          recur(adj,vis,0,ans);
          return ans;
 
@@ -18,12 +18,12 @@ class Solution {
     
     void recur(vector<int> adj[], vector<bool>& vis , int node,vector<int>& ans){
         
-        ans.push_back(node);
+        //ans.push_back(node);
         vis[node] = true;
          
          for(int j : adj[node]){
              if(vis[j] == false){
-                 
+                 ans.push_back(j);
                  recur(adj,vis,j,ans);
                  
              }
