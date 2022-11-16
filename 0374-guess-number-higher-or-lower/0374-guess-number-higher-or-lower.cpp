@@ -11,18 +11,21 @@ class Solution {
 public:
     int guessNumber(int n) {
         
-        long long  st = 0 , en = n , mid;
+        long  st = 1 , en = n ;
+        long mid;
         while(st <= en){
             mid = (st + en )/2;
-            int v = guess(mid);
-            if(v == 0)
-                return mid;
-            if(v == 1){
-                st = mid + 1;
+            
+            int val = guess(mid);
+            if(val < 0){
+                en = mid - 1;
             }
-            if(v == -1)
-                en = mid-1;
+            else if(val > 0)
+                st = mid + 1;
+            else
+                return mid;
         }
-        return 0;
+        return -1;
+        
     }
 };
