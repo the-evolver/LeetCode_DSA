@@ -15,7 +15,7 @@ class Solution {
         
         for(int i = 0 ; i < V ; i++ ){
             
-            if(vis[i] == false && dfs(adj,i,vis,-1) == true){
+            if(vis[i] == false && bfs(adj,i,vis,-1) == true){
                 return true;
             }
             
@@ -25,6 +25,40 @@ class Solution {
         return false;
         
     }
+    
+    bool bfs(vector<int> adj[],int node,vector<bool>& vis ,int par){
+        
+        
+        queue<pair<int,int>> qu;
+        qu.push({node,par});
+        vis[node] = true;
+        
+        while(qu.size() > 0){
+            
+            pair<int,int> curr = qu.front();
+            
+            qu.pop();
+            
+            int son   = curr.first;
+            int daddy = curr.second;
+            
+            for(int it : adj[son]){
+                  if(it == daddy)
+                   continue;
+                   if(vis[it] == true)
+                    return true;
+                    qu.push({it,son});
+                    vis[it] = true;
+            }
+            
+            
+        }
+        
+        return false;
+    }
+    
+    
+    
     
     bool dfs(vector<int> adj[],int node,vector<bool>& vis ,int par){
         
