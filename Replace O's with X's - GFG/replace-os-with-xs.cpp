@@ -11,78 +11,60 @@ class Solution{
 public:
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
-       
-        vector<vector<bool>> vis(n,vector<bool>(m,false));
-        
-        int i = 0 ,j = 0;
-        
-        while( j < m ){
-            if(vis[i][j] == false && mat[i][j] == 'O'){
-                dfs(mat,vis,i,j,n,m);
-            }
-            j++;
-        }
-        
-        i = n-1;
-        j = 0;
-        
-        while( j < m ){
-            if(vis[i][j] == false && mat[i][j] == 'O'){
-                dfs(mat,vis,i,j,n,m);
-            }
-            j++;
-        }
-        
-        i = 0;
-        j = 0;
-        
-        while( i < n ){
-            if(vis[i][j] == false && mat[i][j] == 'O'){
-                dfs(mat,vis,i,j,n,m);
-            }
-            i++;
-        }
-        
-        j = m-1;
-        i = 0;
-         while( i < n ){
-            if(vis[i][j] == false && mat[i][j] == 'O'){
-                dfs(mat,vis,i,j,n,m);
-            }
-            i++;
-        }
-        
-        for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < m ; j++){
-                 //cout<<vis[i][j]<<" ";
-                if(vis[i][j] == false && mat[i][j] =='O')
-                    mat[i][j] ='X';
-            }
-            //cout<<endl;
-        }
-        
-        
-        
-        return mat;
-        
-        
+         int row = n;
+         int col = m;
+         vector<vector<bool>>vis(row,vector<bool>(col,false));
+         
+         queue<pair<int,int>> qu;
+         
+         for(int i = 0 ; i < row ; i++){
+             for(int j = 0 ; j < col ; j++){
+                 if(mat[i][j] == 'O' &&(i == 0 || j == 0 || i == row -1 || j == col-1)){
+                    qu.push({i,j});
+                    vis[i][j] = true;
+                 }
+                 
+             }
+         }
+         
+         while(qu.size() > 0){
+             pair<int,int> pa_ir = qu.front();
+             qu.pop();
+             int i = pa_ir.first;
+             int j = pa_ir.second;
+             
+             
+             if(i-1 >= 0 && vis[i-1][j] == false && mat[i-1][j] == 'O'){
+                 vis[i-1][j] = true;
+                 qu.push({i-1,j});
+             }
+             if(i+1 < row && vis[i+1][j] == false && mat[i+1][j] == 'O'){
+                 vis[i+1][j] = true;
+                 qu.push({i+1,j});
+             }
+             if(j-1 >= 0 && vis[i][j-1] == false && mat[i][j-1] == 'O'){
+                 vis[i][j-1] = true;
+                 qu.push({i,j-1});
+             }
+             if(j+1 <= col && vis[i][j+1] == false && mat[i][j+1] == 'O'){
+                 vis[i][j+1] = true;
+                 qu.push({i,j+1});
+             }
+             
+             
+         }
+         
+         for(int i = 0 ; i < row ; i++){
+             for(int j = 0 ; j < col ; j++){
+                 if(vis[i][j] == false){
+                     mat[i][j] = 'X';
+                 }
+             }
+         }
+         
+         return mat;
+         
     }
-    void dfs(vector<vector<char>>& board , vector<vector<bool>>& vis,int i , int j , int n , int m ){
-        
-       
-        if(i < 0 || j < 0 || i == n || j == m || board[i][j] == 'X' || vis[i][j] == true)
-            return;
-        
-        vis[i][j] = true;
-        dfs(board,vis,i-1,j,n,m);
-        dfs(board,vis,i+1,j,n,m);
-        dfs(board,vis,i,j-1,n,m);
-        dfs(board,vis,i,j+1,n,m);
-        
-        
-        
-    }
-    
 };
 
 //{ Driver Code Starts.
