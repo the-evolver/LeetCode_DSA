@@ -1,58 +1,67 @@
+
 class Solution {
 public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         
-        queue<pair<int,int>> qu;
-        int row = mat.size();
-        int col = mat[0].size();
         
-        vector<vector<bool>> vis(row,vector<bool>(col,false));
-        vector<vector<int>>  ans(row,vector<int>(col,0));
-       
+        queue<pair<pair<int,int>,int>> qu;
+        int n = mat.size();
+        int m = mat[0].size();
         
-        for(int i = 0 ; i < row ; i++){
-            for(int j = 0 ; j < col ; j++){
-                if(mat[i][j] == 0){
-                    qu.push({i,j});
-                    vis[i][j] = true;
-                }
+        vector<vector<int>> ans(n,vector<int>(m,0));
+        
+        vector<vector<bool>> vis(n , vector<bool>(m,false));
+        
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < m ; j++){
+
+                    if(mat[i][j] == 0){
+                        vis[i][j] = true;
+                        qu.push({{i,j},0});
+                    }
+                
             }
         }
         
-        while(qu.size() > 0){
-            pair<int,int> co = qu.front();
+        while(qu.size()){
+            
+            auto it = qu.front();
             qu.pop();
             
-            int i = co.first;
-            int j = co.second;
+            int i = it.first.first;
+            int j = it.first.second;
+            
+            int sum = it.second;
+            
+            if(mat[i][j] == 1){
+                ans[i][j] = sum;
+                
+            }
+            
             
             if(i-1 >= 0 && vis[i-1][j] == false){
                 vis[i-1][j] = true;
-                ans[i-1][j] = ans[i][j] + 1;
-                qu.push({i-1,j});
-            }
-            if(i+1 < row && vis[i+1][j] == false){
-                vis[i+1][j] = true;
-                ans[i+1][j] = ans[i][j] + 1;
-                qu.push({i+1,j});
+                qu.push( { {i-1 , j }, sum + 1 } );
             }
             if(j-1 >= 0 && vis[i][j-1] == false){
                 vis[i][j-1] = true;
-                ans[i][j-1] = ans[i][j] + 1;
-                qu.push({i,j-1});
+                qu.push( { {i , j-1 }, sum + 1 } );
             }
-            if(j+1 < col && vis[i][j+1] == false){
+            if(i+1 < n && vis[i+1][j] == false){
+                vis[i+1][j] = true;
+                qu.push( { {i+1 , j }, sum + 1 } );
+            }
+            if(j+1 < m && vis[i][j+1] == false){
                 vis[i][j+1] = true;
-                ans[i][j+1] = ans[i][j] + 1;
-                qu.push({i,j+1});
+                qu.push( { {i , j+1 }, sum + 1 } );
             }
+            
             
             
             
         }
         
         return ans;
-        
         
     }
 };
