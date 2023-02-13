@@ -17,12 +17,13 @@ public:
         long long ans = 0;
          int n = nums.size();
          int en = n - 1;
-         for(int i = 0 ; i < en ; i++){
+         for(int i = 0 ; i < n ; i++){
             
             
              while(en > i && nums[i] + nums[en] > val)
                  en--;
-            
+             
+             if(en - i > 0 )
              ans += (en - i);
             
             
