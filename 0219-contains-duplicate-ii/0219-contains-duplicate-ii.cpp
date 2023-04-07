@@ -10,20 +10,16 @@ public:
         int len = 0;
         int n = nums.size();
         
-        for(int j = 0 ; j < n ; j++){
+        for(int i = 0 ; i < n ; i++){
             
-            if(len >= k + 1 ){
-                up[nums[j-1-len + 1]]--;
-                len--;
-                
+            if(up.find(nums[i]) == up.end()){
+                up[nums[i]] = i;
+            }else{
+                if( i - up[nums[i]] <= k)
+                    return true;
+                else
+                    up[nums[i]] = i;
             }
-            
-            up[nums[j]]++;
-            len++;
-            
-            if(up[nums[j]] >= 2)
-                return true;
-            
             
         }
         
