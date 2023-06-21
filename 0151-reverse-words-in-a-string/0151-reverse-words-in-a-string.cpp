@@ -3,36 +3,31 @@ public:
     string reverseWords(string s) {
         
         stack<string> st;
-        string ans  = "";
-        string curr ="";
+        string str ="";
         
         for(int i = 0 ; i < s.length() ; i++){
-            
-             if(s[i] == '"')
-                 continue;
-            
-             if(s[i] == ' '){
-                if(curr != "")
-                    st.push(curr);
-                 curr = "";
-                 
-                 
-             }
-             else{
-                 curr += s[i];
-             }
-            
+            if(s[i] == ' '){
+                
+                if(str.size() > 0)
+                st.push(str);
+                str = "";
+            }else{
+                str = str + s[i];
+            }
             
         }
-        if(curr != "")
-        st.push(curr);
+        if(str.size() > 0)
+            st.push(str);
         
+        string ans = "";
         while(st.size() > 0){
             ans += st.top();
+            
             st.pop();
             if(st.size() > 0)
-                ans += " "; 
+                ans+= " ";
         }
+        
         return ans;
         
     }
