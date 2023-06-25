@@ -37,20 +37,35 @@ class Solution
     {
         
         //1 . Iterative way
-        Node* prev = NULL;
-        Node* curr = head;
-        Node* ahead = NULL;
+        // Node* prev = NULL;
+        // Node* curr = head;
+        // Node* ahead = NULL;
         
-        while(curr != NULL){
-            ahead = curr->next;
-            curr->next = prev;
+        // while(curr != NULL){
+        //     ahead = curr->next;
+        //     curr->next = prev;
             
-            prev = curr;
-            curr = ahead;
+        //     prev = curr;
+        //     curr = ahead;
             
-        }
+        // }
         
-        return prev;
+        // return prev;
+        
+        // 2. Recursive way 
+        if(head == NULL || head->next == NULL)
+        return head; // 1 element me kya reverse krega tu ...
+        
+        Node* tail = head->next;
+        Node* rev = reverseList(head->next);
+        
+        tail->next = head;
+        head->next = NULL;
+        
+        return rev;
+        
+        
+        
         
         
     }
