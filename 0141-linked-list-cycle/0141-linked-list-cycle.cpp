@@ -14,11 +14,12 @@ public:
         ListNode* sptr = head;
         
         while(fptr != NULL && fptr->next != NULL){
-               fptr = fptr->next->next;
-               sptr = sptr->next;
-               
-               if(fptr == sptr)
-                   return true;
+            fptr = fptr->next->next;
+            sptr = sptr->next;
+            
+            if(fptr == sptr)
+                return true;
+             
         }
         return false;
         
